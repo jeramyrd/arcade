@@ -6,19 +6,18 @@ Step 4 - Add User Control
 
 Now we've got a character and a world for them to exist in, but what fun is a game if
 you can't control the character and move around? In this Chapter we'll explore adding
-keyboard input in Arcade.
-
-First, at the top of our program, we'll want to add a new constant that controls how 
-many pixels per update our character travels:
+keyboard input in Arcade. Run the following code to see how the code should look.
 
 .. code-block::
-    
-    PLAYER_MOVEMENT_SPEED = 5
 
-In order to handle the keyboard input, we need to add to add two new functions to our
-Window class, ``on_key_press`` and ``on_key_release``. These functions will automatically
-be called by Arcade whenever a key on the keyboard is pressed or released. Inside these
-functions, based on the key that was pressed or released, we will move our character.
+  python -m arcade.examples.platform_tutorial.04_user_control
+
+Player commands are considered 'inputs' to our program. They can come from various sources.
+We will set up inputs from the keyboard. In order to handle the keyboard input, we need to
+add to add two new functions to our Window class, ``on_key_press`` and ``on_key_release``.
+These functions will automatically be called by Arcade whenever a key on the keyboard is
+pressed or released. Inside these functions, based on the key that was pressed or released,
+we will move our character.
 
 .. code-block::
 
@@ -45,6 +44,14 @@ functions, based on the key that was pressed or released, we will move our chara
             self.player_sprite.change_x = 0
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = 0
+
+How fast is the character moving? That is determined by PLAYER_MOVEMENT_SPEED. Which we have not defined yet.
+Let's do that now. Add this to the list of constants. It will add a new constant that controls how
+many pixels per update our character travels:
+
+.. code-block::
+
+    PLAYER_MOVEMENT_SPEED = 5
 
 In these boxes, we are modifying the :py:attr:`~arcade.Sprite.change_x` and :py:attr:`~arcade.Sprite.change_y` attributes on our
 player Sprite. Changing these values will not actually perform the move on the Sprite.
@@ -93,20 +100,17 @@ At this point you should be able to run the game, and move the character around 
 If the physics engine is working properly, the character should not be able to move through the ground
 or the boxes.
 
-For more information about the physics engine we are using in this tutorial,
-see :py:class:`arcade.PhysicsEngineSimple`.
+Challenge
+~~~~~~~~~
 
-.. note::
+* Learn more about the physics engine we are using in this tutorial, :py:class:`arcade.PhysicsEngineSimple`.
+* It is possible to have multiple physics engines, one per moving sprite. See :ref:`pymunk_platformer_tutorial`
+  for a more advanced physics engine.
+* If you want to see how the collisions are checked, try using the ``draw_hit_boxes()`` function
+  on the player and wall SpriteLists inside the ``on_draw`` function. This will show you what the
+  hitboxes that the physics engine uses look like.
 
-    It is possible to have multiple physics engines, one per moving sprite. These
-    are very simple, but easy physics engines. See
-    :ref:`pymunk_platformer_tutorial` for a more advanced physics engine.
-
-.. note::
-
-    If you want to see how the collisions are checked, try using the ``draw_hit_boxes()`` function
-    on the player and wall SpriteLists inside the ``on_draw`` function. This will show you what the
-    hitboxes that the physics engine uses look like. 
+Your code should look like this when you are done.
 
 Source Code
 ~~~~~~~~~~~
@@ -114,11 +118,4 @@ Source Code
 .. literalinclude:: ../../../arcade/examples/platform_tutorial/04_user_control.py
     :caption: 04_user_control.py - User Control
     :linenos:
-    :emphasize-lines: 13-17, 53, 65, 93-121
-
-Run This Chapter
-~~~~~~~~~~~~~~~~
-
-.. code-block::
-
-  python -m arcade.examples.platform_tutorial.04_user_control
+    :emphasize-lines: 16-17, 72-77, 95-123
